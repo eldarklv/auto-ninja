@@ -20,6 +20,8 @@
     "typescript-eslint": "^8.15.0"
   },
   "dependencies": {
-    "swagger-typescript-api": "^13.0.23"
+    "axios": "^1.7.9",
+    "swagger-typescript-api": "^13.0.23",
+    "ts-node": "^10.9.2"
   }
 }
