@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 
 export async function saveSpectToFile(baseUrl: string): Promise<void> {
-    const urlToSpec = new URL(`${baseUrl}/v2/swagger.json`);
+    const urlToSpec = new URL(`${baseUrl}/api-json`);
 
     const dirToSave = `generatedApi/${urlToSpec.hostname}`;
     const fileToWrite = `${dirToSave}/openapi.json`;

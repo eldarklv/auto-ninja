@@ -1,8 +1,11 @@
 import { generateApi } from "swagger-typescript-api";
 import { generatorConfig } from "./generatorConfig";
 import { saveSpectToFile } from "./chemaUtils";
+import { config } from "dotenv";
 
-export async function generateApiClient(baseUrl: string): Promise<void> {
+config();
+
+async function generateApiClient(baseUrl: string): Promise<void> {
     try {
         await saveSpectToFile(baseUrl);
     } catch (error) {
@@ -23,5 +26,11 @@ export async function generateApiClient(baseUrl: string): Promise<void> {
         );
     }
 }
+
+const services = [process.env.HOTELS] as string[];
+
+services.forEach(async (service) => {
+    await generateApiClient(service);
+});
 
 // generateApiClient('https://petstore.swagger.io')
