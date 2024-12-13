@@ -1,0 +1,1196 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/api/admin/users": {
+      "post": {
+        "operationId": "UsersController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "get": {
+        "operationId": "UsersController_getUsersListByAdmin",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "name",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactPhone",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/manager/users": {
+      "get": {
+        "operationId": "UsersController_getUsersListByManager",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "name",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactPhone",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/admin/user-by-id/{id}": {
+      "get": {
+        "operationId": "UsersController_getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/admin/user-by-email": {
+      "get": {
+        "operationId": "UsersController_getUserByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/test": {
+      "get": {
+        "operationId": "AuthController_test",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/common/hotel-rooms": {
+      "get": {
+        "operationId": "HotelsController_searchRooms",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "hotelId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HotelRoom"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      }
+    },
+    "/api/common/hotel-rooms/{id}": {
+      "get": {
+        "operationId": "HotelsController_searchRoomById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HotelRoom"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      }
+    },
+    "/api/admin/hotels": {
+      "post": {
+        "operationId": "HotelsController_createHotel",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HotelDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hotel"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      },
+      "get": {
+        "operationId": "HotelsController_getHotelsList",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "title",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Hotel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      }
+    },
+    "/api/admin/hotels/{id}": {
+      "put": {
+        "operationId": "HotelsController_updateHotel",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HotelDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hotel"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      }
+    },
+    "/api/admin/hotel-rooms": {
+      "post": {
+        "operationId": "HotelsController_createHotelRoom",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HotelRoomPostDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HotelRoom"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      }
+    },
+    "/api/admin/hotel-rooms/{id}": {
+      "put": {
+        "operationId": "HotelsController_editHotelRoom",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HotelRoomPutDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HotelRoom"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hotels"
+        ]
+      }
+    },
+    "/api/client/reservations": {
+      "post": {
+        "operationId": "ReservationsController_createReservation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReservationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reservation"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reservations"
+        ]
+      },
+      "get": {
+        "operationId": "ReservationsController_getUserReservations",
+        "parameters": [
+          {
+            "name": "dateStart",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateEnd",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reservation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reservations"
+        ]
+      }
+    },
+    "/api/client/reservations/{id}": {
+      "delete": {
+        "operationId": "ReservationsController_deleteReservation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Reservations"
+        ]
+      }
+    },
+    "/api/client/support-requests": {
+      "post": {
+        "operationId": "SupportController_createSupportRequest",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSupportRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportRequest"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Support"
+        ]
+      },
+      "get": {
+        "operationId": "SupportController_getSupportRequestsForClient",
+        "parameters": [
+          {
+            "name": "user",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isActive",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SupportRequest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Support"
+        ]
+      }
+    },
+    "/api/manager/support-requests": {
+      "get": {
+        "operationId": "SupportController_getSupportRequestsForManager",
+        "parameters": [
+          {
+            "name": "user",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isActive",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SupportRequest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Support"
+        ]
+      }
+    },
+    "/api/common/support-requests/{id}/messages": {
+      "get": {
+        "operationId": "SupportController_getMessageFromChat",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Support"
+        ]
+      }
+    },
+    "/api/common/support-requests/messages": {
+      "post": {
+        "operationId": "SupportController_sendMessageToChat",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Support"
+        ]
+      }
+    },
+    "/api/common/support-requests/messages/read": {
+      "post": {
+        "operationId": "SupportController_readMessage",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkMessagesAsReadDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Support"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Hotels",
+    "description": "Hotels agregator API documentation",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "cats",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "RegisterUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "role",
+          "contactPhone",
+          "password"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "passwordHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "role",
+          "contactPhone",
+          "passwordHash"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "Hotel": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ]
+      },
+      "HotelRoom": {
+        "type": "object",
+        "properties": {
+          "hotel": {
+            "$ref": "#/components/schemas/Hotel"
+          },
+          "description": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "hotel",
+          "description",
+          "images",
+          "isEnabled"
+        ]
+      },
+      "HotelDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ]
+      },
+      "HotelRoomPostDto": {
+        "type": "object",
+        "properties": {
+          "hotelId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hotelId",
+          "description"
+        ]
+      },
+      "HotelRoomPutDto": {
+        "type": "object",
+        "properties": {
+          "hotelId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "hotelId",
+          "description",
+          "isEnabled"
+        ]
+      },
+      "ReservationDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "hotelId": {
+            "type": "string"
+          },
+          "roomId": {
+            "type": "string"
+          },
+          "dateStart": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "dateEnd": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId",
+          "hotelId",
+          "roomId",
+          "dateStart",
+          "dateEnd"
+        ]
+      },
+      "Reservation": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "$ref": "#/components/schemas/User"
+          },
+          "hotelId": {
+            "$ref": "#/components/schemas/Hotel"
+          },
+          "roomId": {
+            "$ref": "#/components/schemas/HotelRoom"
+          },
+          "dateStart": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "dateEnd": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId",
+          "hotelId",
+          "roomId",
+          "dateStart",
+          "dateEnd"
+        ]
+      },
+      "CreateSupportRequestDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "user",
+          "text"
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "sentAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "readAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "author",
+          "sentAt",
+          "text",
+          "readAt"
+        ]
+      },
+      "SupportRequest": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "sentAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "user",
+          "sentAt",
+          "messages",
+          "isActive"
+        ]
+      },
+      "SendMessageDto": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "object"
+          },
+          "supportRequest": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "author",
+          "supportRequest",
+          "text"
+        ]
+      },
+      "MarkMessagesAsReadDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "supportRequest": {
+            "type": "string"
+          },
+          "createdBefore": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "user",
+          "supportRequest",
+          "createdBefore"
+        ]
+      }
+    }
+  }
+}
