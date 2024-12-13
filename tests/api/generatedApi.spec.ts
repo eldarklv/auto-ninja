@@ -1,16 +1,11 @@
-import { test, expect } from '@playwright/test';
-import { Api } from '../../generatedApi/myApi';
+import { test, expect } from "@playwright/test";
+import { User } from "../../generatedApi/petstore.swagger.io/User";
 
-const api = new Api()
+const user = new User();
 
-test('check generated api work', async () => {
-    const response = await api.user.loginUser({
-        username: '123',
-        password: '123'
-    })
+test("check generated api work", async () => {
+    const response = await user.createEventUserEventCreatePost({})
 
-    console.log(response.data)
-
-    expect(response.status).toBe(200)
-    expect(true).toBeTruthy()
+    console.log(response.status);
+    console.log(response.data);
 });

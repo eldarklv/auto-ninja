@@ -10,6 +10,7 @@ export const generatorConfig = (baseUrl: string): GenerateApiParams => {
     );
     return {
         input: `${serviceDirPath}/openapi.json`,
+        // input: `api.json`,
         output: serviceDirPath,
         modular: true,
         httpClientType: "axios",

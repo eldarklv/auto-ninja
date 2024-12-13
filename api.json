@@ -1,0 +1,1054 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Auth:Jwt.Login",
+                "operationId": "auth_jwt_login_auth_login_post",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_auth_jwt_login_auth_login_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BearerResponse"
+                                },
+                                "example": {
+                                    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOTIyMWZmYzktNjQwZi00MzcyLTg2ZDMtY2U2NDJjYmE1NjAzIiwiYXVkIjoiZmFzdGFwaS11c2VyczphdXRoIiwiZXhwIjoxNTcxNTA0MTkzfQ.M10bjOe45I5Ncu_uXvOmVV8QxnL-nZfcH96U90JaocI",
+                                    "token_type": "bearer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                },
+                                "examples": {
+                                    "LOGIN_BAD_CREDENTIALS": {
+                                        "summary": "Bad credentials or the user is inactive.",
+                                        "value": {
+                                            "detail": "LOGIN_BAD_CREDENTIALS"
+                                        }
+                                    },
+                                    "LOGIN_USER_NOT_VERIFIED": {
+                                        "summary": "The user is not verified.",
+                                        "value": {
+                                            "detail": "LOGIN_USER_NOT_VERIFIED"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Auth:Jwt.Logout",
+                "operationId": "auth_jwt_logout_auth_logout_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Missing token or inactive user."
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register:Register",
+                "operationId": "register_register_auth_register_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserRead"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                },
+                                "examples": {
+                                    "REGISTER_USER_ALREADY_EXISTS": {
+                                        "summary": "A user with this email already exists.",
+                                        "value": {
+                                            "detail": "REGISTER_USER_ALREADY_EXISTS"
+                                        }
+                                    },
+                                    "REGISTER_INVALID_PASSWORD": {
+                                        "summary": "Password validation failed.",
+                                        "value": {
+                                            "detail": {
+                                                "code": "REGISTER_INVALID_PASSWORD",
+                                                "reason": "Password should beat least 3 characters"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/event/create": {
+            "post": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Create Event",
+                "description": "Создание пользовательского события",
+                "operationId": "create_event_user_event_create_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEvent"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEvent"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/user/event/update": {
+            "post": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Update Event",
+                "description": "Обновление пользовательского события",
+                "operationId": "update_event_user_event_update_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEvent"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEvent"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/user/event/delete": {
+            "post": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Delete Event",
+                "description": "Удаление пользовательского события",
+                "operationId": "delete_event_user_event_delete_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/user/event": {
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Get Event",
+                "description": "Получение пользовательского события",
+                "operationId": "get_event_user_event_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEvent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/user/event/tags": {
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Get Tags",
+                "description": "Получение списка тем событий",
+                "operationId": "get_tags_user_event_tags_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TagsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/user/event/{event_id}": {
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Get Event By Id",
+                "description": "Получение события по ID",
+                "operationId": "get_event_by_id_user_event__event_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEvent"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/map": {
+            "post": {
+                "tags": [
+                    "Map"
+                ],
+                "summary": "Get Points",
+                "description": "Получение списка ивентов для карты",
+                "operationId": "get_points_map_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EventPointsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventPointsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApiResponse": {
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "title": "Status"
+                    },
+                    "data": {
+                        "anyOf": [
+                            {},
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Data"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    },
+                    "errors": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status"
+                ],
+                "title": "ApiResponse"
+            },
+            "BearerResponse": {
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "title": "Access Token"
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "title": "Token Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "access_token",
+                    "token_type"
+                ],
+                "title": "BearerResponse"
+            },
+            "Body_auth_jwt_login_auth_login_post": {
+                "properties": {
+                    "grant_type": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "pattern": "password"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Grant Type"
+                    },
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "title": "Scope",
+                        "default": ""
+                    },
+                    "client_id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Client Id"
+                    },
+                    "client_secret": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Client Secret"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "title": "Body_auth_jwt_login_auth_login_post"
+            },
+            "CreateEvent": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "tag": {
+                        "type": "integer",
+                        "title": "Tag"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "title",
+                    "description",
+                    "tag",
+                    "location"
+                ],
+                "title": "CreateEvent"
+            },
+            "ErrorModel": {
+                "properties": {
+                    "detail": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "type": "object"
+                            }
+                        ],
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "detail"
+                ],
+                "title": "ErrorModel"
+            },
+            "Event": {
+                "properties": {
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    },
+                    "user": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "tag": {
+                        "type": "integer",
+                        "title": "Tag"
+                    },
+                    "date_create": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Date Create"
+                    },
+                    "date_close": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Date Close"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "event_id",
+                    "name",
+                    "description",
+                    "tag",
+                    "date_create",
+                    "date_close"
+                ],
+                "title": "Event"
+            },
+            "EventPoints": {
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "title": "Count"
+                    },
+                    "events": {
+                        "items": {
+                            "$ref": "#/components/schemas/EventPont"
+                        },
+                        "type": "array",
+                        "title": "Events"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "count",
+                    "events"
+                ],
+                "title": "EventPoints"
+            },
+            "EventPointsRequest": {
+                "properties": {
+                    "client_location": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "tag": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Tag"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "client_location"
+                ],
+                "title": "EventPointsRequest"
+            },
+            "EventPointsResponse": {
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "title": "Status"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/EventPoints"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    },
+                    "errors": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status",
+                    "data"
+                ],
+                "title": "EventPointsResponse"
+            },
+            "EventPont": {
+                "properties": {
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "title": "Icon"
+                    },
+                    "tag": {
+                        "type": "integer",
+                        "title": "Tag"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "event_id",
+                    "name",
+                    "icon",
+                    "tag",
+                    "location"
+                ],
+                "title": "EventPont"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Location": {
+                "properties": {
+                    "lat": {
+                        "type": "number",
+                        "title": "Lat"
+                    },
+                    "lon": {
+                        "type": "number",
+                        "title": "Lon"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "lat",
+                    "lon"
+                ],
+                "title": "Location"
+            },
+            "ResponseEvent": {
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "title": "Status"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Event"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    },
+                    "errors": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status",
+                    "data"
+                ],
+                "title": "ResponseEvent"
+            },
+            "Tag": {
+                "properties": {
+                    "tag_id": {
+                        "type": "integer",
+                        "title": "Tag Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "tag_id",
+                    "name"
+                ],
+                "title": "Tag"
+            },
+            "TagsResponse": {
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "title": "Status"
+                    },
+                    "data": {
+                        "items": {
+                            "$ref": "#/components/schemas/Tag"
+                        },
+                        "type": "array",
+                        "title": "Data"
+                    },
+                    "message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Message"
+                    },
+                    "errors": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status",
+                    "data"
+                ],
+                "title": "TagsResponse"
+            },
+            "UserCreate": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active",
+                        "default": true
+                    },
+                    "is_superuser": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Superuser",
+                        "default": false
+                    },
+                    "is_verified": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Verified",
+                        "default": false
+                    },
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "password",
+                    "username"
+                ],
+                "title": "UserCreate"
+            },
+            "UserRead": {
+                "properties": {
+                    "id": {
+                        "title": "Id"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active",
+                        "default": true
+                    },
+                    "is_superuser": {
+                        "type": "boolean",
+                        "title": "Is Superuser",
+                        "default": false
+                    },
+                    "is_verified": {
+                        "type": "boolean",
+                        "title": "Is Verified",
+                        "default": false
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "email"
+                ],
+                "title": "UserRead"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        },
+        "securitySchemes": {
+            "OAuth2PasswordBearer": {
+                "type": "oauth2",
+                "flows": {
+                    "password": {
+                        "scopes": {},
+                        "tokenUrl": "auth/login"
+                    }
+                }
+            }
+        }
+    }
+}

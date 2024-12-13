@@ -17,10 +17,11 @@ export async function generateApiClient(baseUrl: string): Promise<void> {
         await generateApi(config);
         console.info(`Successfully generated client for service ${baseUrl}`);
     } catch (error) {
+        throw error;
         console.error(
             `Could not generate client for service ${baseUrl}. Reason: "${error}"`
         );
     }
 }
 
-generateApiClient('https://petstore.swagger.io')
+// generateApiClient('https://petstore.swagger.io')

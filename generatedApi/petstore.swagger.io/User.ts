@@ -9,131 +9,125 @@
  * ---------------------------------------------------------------
  */
 
-import { GetUserByNameResponse, LoginUserParams, LoginUserResponse, User } from "./data-contracts";
+import {
+  CreateEvent,
+  CreateEventUserEventCreatePostError,
+  CreateEventUserEventCreatePostResponse,
+  DeleteEventUserEventDeletePostResponse,
+  GetEventByIdUserEventEventIdGetError,
+  GetEventByIdUserEventEventIdGetResponse,
+  GetEventUserEventGetResponse,
+  GetTagsUserEventTagsGetResponse,
+  UpdateEventUserEventUpdatePostError,
+  UpdateEventUserEventUpdatePostResponse,
+} from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
-   * No description
+   * @description Создание пользовательского события
    *
-   * @tags user
-   * @name CreateUsersWithListInput
-   * @summary Creates list of users with given input array
-   * @request POST:/user/createWithList
+   * @tags Event
+   * @name CreateEventUserEventCreatePost
+   * @summary Create Event
+   * @request POST:/user/event/create
+   * @secure
    */
-  createUsersWithListInput = (body: User[], params: RequestParams = {}) =>
-    this.request<any, void>({
-      path: `/user/createWithList`,
+  createEventUserEventCreatePost = (data: CreateEvent, params: RequestParams = {}) =>
+    this.request<CreateEventUserEventCreatePostResponse, CreateEventUserEventCreatePostError>({
+      path: `/user/event/create`,
       method: "POST",
-      body: body,
+      body: data,
+      secure: true,
       type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags user
-   * @name GetUserByName
-   * @summary Get user by user name
-   * @request GET:/user/{username}
-   */
-  getUserByName = (username: string, params: RequestParams = {}) =>
-    this.request<GetUserByNameResponse, void>({
-      path: `/user/${username}`,
-      method: "GET",
       format: "json",
       ...params,
     });
   /**
-   * @description This can only be done by the logged in user.
+   * @description Обновление пользовательского события
    *
-   * @tags user
-   * @name UpdateUser
-   * @summary Updated user
-   * @request PUT:/user/{username}
+   * @tags Event
+   * @name UpdateEventUserEventUpdatePost
+   * @summary Update Event
+   * @request POST:/user/event/update
+   * @secure
    */
-  updateUser = (username: string, body: User, params: RequestParams = {}) =>
-    this.request<any, void>({
-      path: `/user/${username}`,
-      method: "PUT",
-      body: body,
+  updateEventUserEventUpdatePost = (data: CreateEvent, params: RequestParams = {}) =>
+    this.request<UpdateEventUserEventUpdatePostResponse, UpdateEventUserEventUpdatePostError>({
+      path: `/user/event/update`,
+      method: "POST",
+      body: data,
+      secure: true,
       type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * @description This can only be done by the logged in user.
-   *
-   * @tags user
-   * @name DeleteUser
-   * @summary Delete user
-   * @request DELETE:/user/{username}
-   */
-  deleteUser = (username: string, params: RequestParams = {}) =>
-    this.request<any, void>({
-      path: `/user/${username}`,
-      method: "DELETE",
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags user
-   * @name LoginUser
-   * @summary Logs user into the system
-   * @request GET:/user/login
-   */
-  loginUser = (query: LoginUserParams, params: RequestParams = {}) =>
-    this.request<LoginUserResponse, void>({
-      path: `/user/login`,
-      method: "GET",
-      query: query,
       format: "json",
       ...params,
     });
   /**
-   * No description
+   * @description Удаление пользовательского события
    *
-   * @tags user
-   * @name LogoutUser
-   * @summary Logs out current logged in user session
-   * @request GET:/user/logout
+   * @tags Event
+   * @name DeleteEventUserEventDeletePost
+   * @summary Delete Event
+   * @request POST:/user/event/delete
+   * @secure
    */
-  logoutUser = (params: RequestParams = {}) =>
-    this.request<any, void>({
-      path: `/user/logout`,
+  deleteEventUserEventDeletePost = (params: RequestParams = {}) =>
+    this.request<DeleteEventUserEventDeletePostResponse, any>({
+      path: `/user/event/delete`,
+      method: "POST",
+      secure: true,
+      format: "json",
+      ...params,
+    });
+  /**
+   * @description Получение пользовательского события
+   *
+   * @tags Event
+   * @name GetEventUserEventGet
+   * @summary Get Event
+   * @request GET:/user/event
+   * @secure
+   */
+  getEventUserEventGet = (params: RequestParams = {}) =>
+    this.request<GetEventUserEventGetResponse, any>({
+      path: `/user/event`,
       method: "GET",
+      secure: true,
+      format: "json",
       ...params,
     });
   /**
-   * No description
+   * @description Получение списка тем событий
    *
-   * @tags user
-   * @name CreateUsersWithArrayInput
-   * @summary Creates list of users with given input array
-   * @request POST:/user/createWithArray
+   * @tags Event
+   * @name GetTagsUserEventTagsGet
+   * @summary Get Tags
+   * @request GET:/user/event/tags
+   * @secure
    */
-  createUsersWithArrayInput = (body: User[], params: RequestParams = {}) =>
-    this.request<any, void>({
-      path: `/user/createWithArray`,
-      method: "POST",
-      body: body,
-      type: ContentType.Json,
+  getTagsUserEventTagsGet = (params: RequestParams = {}) =>
+    this.request<GetTagsUserEventTagsGetResponse, any>({
+      path: `/user/event/tags`,
+      method: "GET",
+      secure: true,
+      format: "json",
       ...params,
     });
   /**
-   * @description This can only be done by the logged in user.
+   * @description Получение события по ID
    *
-   * @tags user
-   * @name CreateUser
-   * @summary Create user
-   * @request POST:/user
+   * @tags Event
+   * @name GetEventByIdUserEventEventIdGet
+   * @summary Get Event By Id
+   * @request GET:/user/event/{event_id}
+   * @secure
    */
-  createUser = (body: User, params: RequestParams = {}) =>
-    this.request<any, void>({
-      path: `/user`,
-      method: "POST",
-      body: body,
-      type: ContentType.Json,
+  getEventByIdUserEventEventIdGet = (eventId: number, params: RequestParams = {}) =>
+    this.request<GetEventByIdUserEventEventIdGetResponse, GetEventByIdUserEventEventIdGetError>({
+      path: `/user/event/${eventId}`,
+      method: "GET",
+      secure: true,
+      format: "json",
       ...params,
     });
 }
